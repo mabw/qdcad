@@ -19,12 +19,16 @@ module.exports = appInfo => {
   config.middleware = [];
 
   // add your user config here
-  const userConfig = {
-    // myAppName: 'egg',
+  config.sequelize = {
+    dialect: 'postgres',
+    username: 'marvin',
+    password: '123456',
+    host: '127.0.0.1',
+    port: 5432,
+    database: 'qdcad_development',
   };
 
   return {
     ...config,
-    ...userConfig,
   };
 };
