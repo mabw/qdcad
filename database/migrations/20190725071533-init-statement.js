@@ -2,15 +2,23 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const { INTEGER, TEXT, STRING, DATE, ENUM, DECIMAL } = Sequelize;
+    const { INTEGER, TEXT, STRING, ENUM, DECIMAL } = Sequelize;
     await queryInterface.createTable('statement', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
-      client_name: STRING(50),
-      type: ENUM('pay', 'collect'),
-      amount: DECIMAL,
-      created_at: DATE,
+      clientName: { type: STRING(50), allowNull: false, comment: '客户名称' },
+      type: { type: ENUM('pay', 'collect'), allowNull: false, comment: '收付款标识' },
+      amount: { type: DECIMAL, allowNull: false, comment: '发生金额' },
       memo: TEXT,
-      bill_id: { type: INTEGER },
+      billId: {
+        type: INTEGER, comment: '提单号', references: {
+          tableName: 'bill',
+          key: 'id',
+        },
+      },
+    }, {
+      modelName: 'statement',
+      timestamps: true,
+      paranoid: true,
     });
   },
 

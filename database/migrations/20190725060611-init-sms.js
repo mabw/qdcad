@@ -2,20 +2,28 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const { INTEGER, DATE, STRING } = Sequelize;
+    const { INTEGER, STRING } = Sequelize;
     await queryInterface.createTable('sms', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
-      bill_id: { type: INTEGER },
-      driver_name: STRING(10),
-      mobile_number: STRING(20),
-      content: STRING,
-      vessel_number: STRING(10),
-      sender: STRING(10),
-      created_at: DATE,
+      billId: {
+        type: INTEGER, allowNull: false, comment: '提单号', references: {
+          tableName: 'bill',
+          key: 'id',
+        },
+      },
+      driver_name: { type: STRING(10), allowNull: false, comment: '司机姓名' },
+      mobile_number: { type: STRING(20), allowNull: false, comment: '司机电话' },
+      content: { type: STRING, allowNull: false, comment: '短信内容' },
+      vessel_number: { type: STRING(10), allowNull: false, comment: '车牌号' },
+      sender: { type: STRING(10), allowNull: false, comment: '发送人' },
+    }, {
+      modelName: 'sms',
+      timestamps: true,
+      paranoid: true,
     });
   },
 
   down: async queryInterface => {
-    await queryInterface.dropTable('bill');
+    await queryInterface.dropTable('sms');
   },
 };

@@ -6,10 +6,14 @@ module.exports = {
     const { INTEGER, DATE, STRING } = Sequelize;
     await queryInterface.createTable('users', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
-      name: STRING(30),
-      role: STRING(30),
-      created_at: DATE,
-      updated_at: DATE,
+      name: { type: STRING(30), allowNull: false },
+      role: { type: STRING(30), allowNull: false },
+      created_at: { type: DATE, defaultValue: Sequelize.NOW },
+      updated_at: { type: DATE, defaultValue: Sequelize.NOW },
+    }, {
+      modelName: 'users',
+      timestamps: true,
+      paranoid: true,
     });
   },
   // 在执行数据库降级时调用的函数，删除 users 表

@@ -1,14 +1,12 @@
 'use strict';
 
 module.exports = app => {
-  const { STRING, INTEGER, DATE } = app.Sequelize;
+  const { STRING, INTEGER } = app.Sequelize;
 
-  const User = app.model.define('user', {
+  const User = app.model.define('User', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
-    name: STRING(30),
-    role: STRING(30),
-    created_at: DATE,
-    updated_at: DATE,
+    name: { type: STRING(30), allowNull: false, comment: '用户名' },
+    role: { type: STRING(30), allowNull: false, comment: '权限组' },
   });
 
   return User;
