@@ -11,7 +11,7 @@ module.exports = {
       memo: TEXT,
       billId: {
         type: INTEGER, comment: '提单号', references: {
-          tableName: 'bill',
+          model: 'bill',
           key: 'id',
         },
       },
@@ -19,6 +19,7 @@ module.exports = {
       modelName: 'statement',
       timestamps: true,
       paranoid: true,
+      underscored: true,
     });
   },
 

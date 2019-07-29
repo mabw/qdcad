@@ -7,7 +7,7 @@ module.exports = {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
       billId: {
         type: INTEGER, allowNull: false, comment: '提单号', references: {
-          tableName: 'bill',
+          model: 'bill',
           key: 'id',
         },
       },
@@ -35,15 +35,17 @@ module.exports = {
       paidByUser: STRING(10),
       paidAt: DATE,
       isCollectedChecked: { type: BOOLEAN, defaultValue: false, comment: '收款审核' },
-      collected_checked_by_user: STRING(10),
-      collected_checked_at: DATE,
-      is_collected: { type: BOOLEAN, defaultValue: false, comment: '已收款' },
-      collected_by_user: STRING(10),
-      collected_at: DATE,
+      collectedCheckedByUser: STRING(10),
+      collectedCheckedAt: DATE,
+      isCollected: { type: BOOLEAN, defaultValue: false, comment: '已收款' },
+      collectedByUser: STRING(10),
+      collectedAt: DATE,
+      is_deleted: { type: BOOLEAN, defaultValue: false, comment: '是否已删除' },
     }, {
       modelName: 'carriage',
       timestamps: true,
       paranoid: true,
+      underscored: true,
     });
   },
 

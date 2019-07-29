@@ -11,6 +11,7 @@ module.exports = {
       modelName: 'configuration',
       timestamps: true,
       paranoid: true,
+      underscored: true,
     });
   },
 
