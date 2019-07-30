@@ -28,6 +28,16 @@ module.exports = appInfo => {
     database: 'qdcad_development',
   };
 
+  config.bcrypt = {
+    saltRounds: 10, // default 10
+  };
+
+  config.jwt = {
+    secret: 'qdcad12345',
+    // match: '/bills',
+    match: '/users',
+  };
+
   return {
     ...config,
   };
