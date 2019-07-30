@@ -1,11 +1,11 @@
 'use strict';
-module.exports = (sequelize, DataTypes) => {
-  const { STRING, INTEGER, DATEONLY, FLOAT, TEXT, BOOLEAN, DATE } = DataTypes;
-  const Carriage = sequelize.define('Carriage', {
+module.exports = app => {
+  const { STRING, INTEGER, DATEONLY, FLOAT, TEXT, BOOLEAN, DATE } = app.Sequelize;
+  const Carriage = app.model.define('Carriage', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     billId: {
       type: INTEGER, allowNull: false, comment: '提单号', references: {
-        model: 'bill',
+        model: 'Bill',
         key: 'id',
       },
     },
@@ -44,8 +44,9 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true,
   });
 
-  Carriage.associate = function(models) {
-    Carriage.belongsTo(models.Bill);
+  Carriage.prototype.associate = function() {
+    app.model.Carriage.belongsTo(app.model.Bill, { as: 'bills', foreignKey: 'bill_id' });
   };
+
   return Carriage;
 };

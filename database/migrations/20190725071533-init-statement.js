@@ -2,28 +2,26 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const { INTEGER, TEXT, STRING, ENUM, DECIMAL } = Sequelize;
-    await queryInterface.createTable('statement', {
+    const { INTEGER, TEXT, STRING, ENUM, DECIMAL, DATE } = Sequelize;
+    await queryInterface.createTable('statements', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
-      clientName: { type: STRING(50), allowNull: false, comment: '客户名称' },
+      client_name: { type: STRING(50), allowNull: false, comment: '客户名称' },
       type: { type: ENUM('pay', 'collect'), allowNull: false, comment: '收付款标识' },
       amount: { type: DECIMAL, allowNull: false, comment: '发生金额' },
       memo: TEXT,
-      billId: {
+      bill_id: {
         type: INTEGER, comment: '提单号', references: {
-          model: 'bill',
+          model: 'bills',
           key: 'id',
         },
       },
-    }, {
-      modelName: 'statement',
-      timestamps: true,
-      paranoid: true,
-      underscored: true,
+      deleted_at: { type: DATE, defaultValue: Sequelize.NOW },
+      created_at: { type: DATE, defaultValue: Sequelize.NOW },
+      updated_at: { type: DATE, defaultValue: Sequelize.NOW },
     });
   },
 
   down: async queryInterface => {
-    await queryInterface.dropTable('statement');
+    await queryInterface.dropTable('statements');
   },
 };

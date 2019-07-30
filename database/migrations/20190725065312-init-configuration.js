@@ -2,20 +2,18 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const { INTEGER, STRING, JSON } = Sequelize;
-    await queryInterface.createTable('configuration', {
+    const { INTEGER, STRING, JSON, DATE } = Sequelize;
+    await queryInterface.createTable('configurations', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
       type: { type: STRING(10), allowNull: false },
       content: { type: JSON, allowNull: false },
-    }, {
-      modelName: 'configuration',
-      timestamps: true,
-      paranoid: true,
-      underscored: true,
+      deleted_at: { type: DATE, defaultValue: Sequelize.NOW },
+      created_at: { type: DATE, defaultValue: Sequelize.NOW },
+      updated_at: { type: DATE, defaultValue: Sequelize.NOW },
     });
   },
 
   down: async queryInterface => {
-    await queryInterface.dropTable('configuration');
+    await queryInterface.dropTable('configurations');
   },
 };

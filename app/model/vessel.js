@@ -1,7 +1,7 @@
 'use strict';
-module.exports = (sequelize, DataTypes) => {
-  const { STRING, INTEGER, DATEONLY } = DataTypes;
-  const Vessel = sequelize.define('Vessel', {
+module.exports = app => {
+  const { STRING, INTEGER, DATEONLY } = app.Sequelize;
+  const Vessel = app.model.define('Vessel', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     vesselNumber: { type: STRING(10), allowNull: false, comment: '车牌号' },
     driverName: { type: STRING(10), allowNull: false, comment: '司机姓名' },

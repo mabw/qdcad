@@ -1,7 +1,7 @@
 'use strict';
-module.exports = (sequelize, DataTypes) => {
-  const { STRING, INTEGER, ENUM, DATEONLY, FLOAT, TEXT, BOOLEAN, DATE } = DataTypes;
-  const Bill = sequelize.define('Bill', {
+module.exports = app => {
+  const { STRING, INTEGER, ENUM, DATEONLY, FLOAT, TEXT, BOOLEAN, DATE } = app.Sequelize;
+  const Bill = app.model.define('Bill', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     bill: { type: STRING(30), allowNull: false, comment: '提单号' },
     vessel: { type: STRING(50), allowNull: false, comment: '英文船名' },
@@ -47,11 +47,17 @@ module.exports = (sequelize, DataTypes) => {
     isCollected: { type: BOOLEAN, defaultValue: false, comment: '已收款' },
     collectedByUser: STRING(10),
     collectedAt: DATE,
-    isDeleted: { type: BOOLEAN, defaultValue: false, comment: '是否已删除' },,
+    isDeleted: { type: BOOLEAN, defaultValue: false, comment: '是否已删除' },
   }, {
-      underscored: true,
-      paranoid: true,
-    });
+    underscored: true,
+    paranoid: true,
+  });
+
+  Bill.prototype.associate = function() {
+    app.model.Bill.hasMany(app.model.Carriage, { as: 'carriages' });
+    app.model.Bill.hasMany(app.model.Sms, { as: 'smss' });
+    app.model.Bill.hasMany(app.model.Statement, { as: 'statements' });
+  };
 
   return Bill;
 };

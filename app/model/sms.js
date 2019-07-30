@@ -1,11 +1,11 @@
 'use strict';
-module.exports = (sequelize, DataTypes) => {
-  const { STRING, INTEGER } = DataTypes;
-  const Sms = sequelize.define('Sms', {
+module.exports = app => {
+  const { STRING, INTEGER } = app.Sequelize;
+  const Sms = app.model.define('Sms', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     billId: {
       type: INTEGER, allowNull: false, comment: '提单号', references: {
-        model: 'bill',
+        model: 'Bill',
         key: 'id',
       },
     },
@@ -19,8 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true,
   });
 
-  Sms.associate = function(models) {
-    Sms.belongsTo(models.Bill);
+  Sms.prototype.associate = function() {
+    app.model.Sms.belongsTo(app.model.Bill(app.model.Bill, { as: 'bill', foreignKey: 'bill_id' }));
   };
+
   return Sms;
 };
