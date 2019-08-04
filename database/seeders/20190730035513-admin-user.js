@@ -2,10 +2,16 @@
 
 module.exports = {
   up: queryInterface => {
-    return queryInterface.bulkInsert('users', [{
-      name: 'Junqin.F',
-      role: 'admin',
-    }], {});
+    return queryInterface.bulkInsert(
+      'users',
+      [
+        {
+          name: 'Junqin.F',
+          role: 'admin',
+        },
+      ],
+      {}
+    );
   },
 
   down: queryInterface => {

@@ -2,10 +2,20 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const { INTEGER, STRING, JSON, DATE } = Sequelize;
+    const { INTEGER, ENUM, JSON, DATE } = Sequelize;
     await queryInterface.createTable('configurations', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
-      type: { type: STRING(10), allowNull: false },
+      type: {
+        type: ENUM(
+          'yard',
+          'container_spec',
+          'departure',
+          'arrival',
+          'yun_gang_tong',
+          'client_name'
+        ),
+        allowNull: false,
+      },
       content: { type: JSON, allowNull: false },
       deleted_at: { type: DATE, defaultValue: Sequelize.NOW },
       created_at: { type: DATE, defaultValue: Sequelize.NOW },
