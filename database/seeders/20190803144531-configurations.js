@@ -8,28 +8,28 @@ module.exports = {
         {
           type: 'yard',
           content:
-            '[{"name": "中创", "identity":"zhong_chuang"}, {"name": "捷丰", "identity":"jie_feng"}]',
+            '{"data":[{"name":"中创","identity":"zhong_chuang"},{"name":"捷丰","identity":"jie_feng"}]}',
         },
         {
           type: 'container_spec',
           content:
-            '[{"size": "20", "type":"HC", "isFrozen": true}, {"size": "40", "type":"HC", "isFrozen": true}, {"size": "40", "type":"GP", "isFrozen": false}, {"size": "40", "type":"RH", "isFrozen": true}]',
+            '{"data":[{"size": "20", "type":"HC", "isFrozen": true}, {"size": "40", "type":"HC", "isFrozen": true}, {"size": "40", "type":"GP", "isFrozen": false}, {"size": "40", "type":"RH", "isFrozen": true}]}',
         },
         {
           type: 'departure',
-          content: '["黄岛"]',
+          content: '{"data": ["黄岛"]}',
         },
         {
           type: 'arrival',
-          content: '["凤祥"]',
+          content: '{"data":["凤祥"]}',
         },
         {
           type: 'yun_gang_tong',
-          content: '{"user":"13199999999", "password":"123123123"}',
+          content: '{"data": {"user":"13199999999","password":"4433323"}}',
         },
         {
           type: 'client_name',
-          content: '["祥光"]',
+          content: '{"data":["祥光"]}',
         },
       ],
       {}
