@@ -11,7 +11,10 @@ function toInt(str) {
 class BillController extends Controller {
   async index() {
     const ctx = this.ctx;
-    const query = { limit: toInt(ctx.query.limit), offset: toInt(ctx.query.offset) };
+    const query = {
+      limit: toInt(ctx.query.limit),
+      offset: toInt(ctx.query.offset),
+    };
     ctx.body = await ctx.model.Bill.findAll(query);
   }
 
@@ -22,10 +25,48 @@ class BillController extends Controller {
 
   async create() {
     const ctx = this.ctx;
-    const { name, role } = ctx.request.body;
-    const Bill = await ctx.model.Bill.create({ name, role });
+    const {
+      bill,
+      vessel,
+      vesselCn,
+      voyage,
+      shippingSchedule,
+      yard,
+      arrival,
+      measureDock,
+      direction,
+      assignTime,
+      arrivalTime,
+      vehicleNumber,
+      vehicleDriver,
+      vehicleOwner,
+      clientName,
+      containerSpec,
+      memo,
+      operator,
+    } = ctx.request.body;
+    await ctx.model.Bill.create({
+      bill: bill.toUpperCase(),
+      vessel,
+      vesselCn,
+      voyage,
+      shippingSchedule,
+      yard,
+      arrival,
+      measureDock,
+      direction,
+      assignTime,
+      arrivalTime,
+      vehicleNumber,
+      vehicleDriver,
+      vehicleOwner,
+      clientName,
+      containerSpec: containerSpec.toUpperCase(),
+      memo,
+      operator,
+    });
     ctx.status = 201;
-    ctx.body = Bill;
+    ctx.body = await ctx.model.Bill.findAll();
   }
 
   async update() {

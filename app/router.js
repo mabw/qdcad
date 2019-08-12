@@ -16,4 +16,5 @@ module.exports = app => {
     '/api/v1/configurations',
     controller.configurations
   );
+  router.get('/api/v1/check-bill/:bill', controller.checkBill.index);
 };
