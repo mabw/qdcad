@@ -31,6 +31,10 @@ module.exports = {
           type: 'client_name',
           content: '{"data":["祥光"]}',
         },
+        {
+          type: 'carriage_name',
+          content: '{"data":["祥光2"]}',
+        },
       ],
       {}
     );

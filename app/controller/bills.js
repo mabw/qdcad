@@ -23,6 +23,7 @@ class BillController extends Controller {
     ctx.body = await ctx.model.Bill.findByPk(toInt(ctx.params.id));
   }
 
+  // TODO: 将新添选项加到配置表里
   async create() {
     const ctx = this.ctx;
     const {

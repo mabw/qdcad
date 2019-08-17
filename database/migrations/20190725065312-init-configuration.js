@@ -12,7 +12,8 @@ module.exports = {
           'departure',
           'arrival',
           'yun_gang_tong',
-          'client_name'
+          'client_name',
+          'carriage_name'
         ),
         allowNull: false,
       },

@@ -8,10 +8,14 @@ function toInt(str) {
   return parseInt(str, 10) || 0;
 }
 
+// 精简请求参数
 class CarriageController extends Controller {
   async index() {
     const ctx = this.ctx;
-    const query = { limit: toInt(ctx.query.limit), offset: toInt(ctx.query.offset) };
+    const query = {
+      limit: toInt(ctx.query.limit),
+      offset: toInt(ctx.query.offset),
+    };
     ctx.body = await ctx.model.Carriage.findAll(query);
   }
 
@@ -22,10 +26,34 @@ class CarriageController extends Controller {
 
   async create() {
     const ctx = this.ctx;
-    const { name, role } = ctx.request.body;
-    const Carriage = await ctx.model.Carriage.create({ name, role });
+    const {
+      billId,
+      departure,
+      arrival,
+      assignTime,
+      arrivalTime,
+      clientName,
+      carriageName,
+      carriageWeight,
+      carriagePricePerTon,
+      operator,
+      memo,
+    } = ctx.request.body;
+    await ctx.model.Carriage.create({
+      billId,
+      departure,
+      arrival,
+      assignTime,
+      arrivalTime,
+      clientName,
+      carriageName,
+      carriageWeight,
+      carriagePricePerTon,
+      operator,
+      memo,
+    });
     ctx.status = 201;
-    ctx.body = Carriage;
+    ctx.body = await ctx.model.Carriage.findAll();
   }
 
   async update() {
