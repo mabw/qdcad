@@ -2,16 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const {
-      INTEGER,
-      DATE,
-      DATEONLY,
-      STRING,
-      ENUM,
-      FLOAT,
-      TEXT,
-      BOOLEAN,
-    } = Sequelize;
+    const { INTEGER, DATE, DATEONLY, STRING, FLOAT, TEXT, BOOLEAN } = Sequelize;
     await queryInterface.createTable('bills', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
       bill: { type: STRING(30), allowNull: false, comment: '提单号' },
@@ -22,11 +13,11 @@ module.exports = {
       yard: { type: STRING(50), allowNull: false, comment: '场站' },
       arrival: { type: STRING(50), allowNull: false, comment: '终点' },
       measure_dock: {
-        type: ENUM('QQCT', 'QQCTU'),
+        type: STRING(10),
         comment: '测温码头',
       },
       direction: {
-        type: ENUM('进口', '出口'),
+        type: STRING(10),
         allowNull: false,
         comment: '进出口类型',
       },

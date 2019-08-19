@@ -3,7 +3,6 @@ module.exports = app => {
   const {
     STRING,
     INTEGER,
-    ENUM,
     DATEONLY,
     FLOAT,
     TEXT,
@@ -22,11 +21,11 @@ module.exports = app => {
       yard: { type: STRING(50), allowNull: false, comment: '场站' },
       arrival: { type: STRING(50), allowNull: false, comment: '终点' },
       measureDock: {
-        type: ENUM('QQCT', 'QQCTU'),
+        type: STRING(10),
         comment: '测温码头',
       },
       direction: {
-        type: ENUM('进口', '出口'),
+        type: STRING(10),
         allowNull: false,
         comment: '进出口类型',
       },
