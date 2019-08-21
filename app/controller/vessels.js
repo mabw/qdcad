@@ -11,8 +11,7 @@ function toInt(str) {
 class VesselController extends Controller {
   async index() {
     const ctx = this.ctx;
-    const query = { limit: toInt(ctx.query.limit), offset: toInt(ctx.query.offset) };
-    ctx.body = await ctx.model.Vessel.findAll(query);
+    ctx.body = await ctx.model.Vessel.findAll();
   }
 
   async show() {

@@ -33,7 +33,7 @@ module.exports = {
         },
         {
           type: 'carriage_name',
-          content: '{"data":["祥光2"]}',
+          content: '{"data":["冻丸子"]}',
         },
       ],
       {}
