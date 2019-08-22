@@ -10,7 +10,7 @@ module.exports = app => {
   router.resources('carriages', '/api/v1/carriages', controller.carriages);
   router.resources('sms', '/api/v1/sms', controller.smss);
   router.resources('statements', '/api/v1/statements', controller.statements);
-  router.resources('vessels', '/api/v1/vessels', controller.vessels);
+  router.resources('vehicles', '/api/v1/vehicles', controller.vehicles);
   router.resources(
     'configurations',
     '/api/v1/configurations',

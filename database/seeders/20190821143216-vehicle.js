@@ -3,12 +3,12 @@
 module.exports = {
   up: queryInterface => {
     return queryInterface.bulkInsert(
-      'vessels',
+      'vehicles',
       [
         {
-          vessel_number: 'LBD2933',
+          vehicle_number: 'LBD2933',
           driver_name: '马炳文',
-          vessel_owner: '畅安达',
+          vehicle_owner: '畅安达',
           driver_mobile: '13188986322',
         },
       ],
@@ -17,6 +17,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.bulkDelete('vessels', null, {});
+    return queryInterface.bulkDelete('vehicles', null, {});
   },
 };

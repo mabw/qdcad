@@ -6,8 +6,8 @@ module.exports = {
     await queryInterface.createTable('bills', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
       bill: { type: STRING(30), allowNull: false, comment: '提单号' },
-      vessel: { type: STRING(50), allowNull: false, comment: '英文船名' },
-      vessel_cn: { type: STRING(50), comment: '中文船名' },
+      vehicle: { type: STRING(50), allowNull: false, comment: '英文船名' },
+      vehicle_cn: { type: STRING(50), comment: '中文船名' },
       voyage: { type: STRING(10), allowNull: false, comment: '航次' },
       shipping_schedule: { type: DATEONLY, comment: '船期' },
       yard: { type: STRING(50), allowNull: false, comment: '场站' },

@@ -1,11 +1,11 @@
 'use strict';
 module.exports = app => {
   const { STRING, INTEGER, DATEONLY } = app.Sequelize;
-  const Vessel = app.model.define('Vessel', {
+  const Vehicle = app.model.define('Vehicle', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
-    vesselNumber: { type: STRING(10), allowNull: false, comment: '车牌号' },
+    vehicleNumber: { type: STRING(10), allowNull: false, comment: '车牌号' },
     driverName: { type: STRING(10), allowNull: false, comment: '司机姓名' },
-    vesselOwner: { type: STRING(10), allowNull: false, comment: '车主' },
+    vehicleOwner: { type: STRING(10), allowNull: false, comment: '车主' },
     trailerNumber: { type: STRING(10), comment: '挂号车牌' },
     driverMobile: { type: STRING(20), allowNull: false, comment: '司机电话' },
     insuranceDate: { type: DATEONLY, comment: '保险到期时间' },
@@ -18,5 +18,5 @@ module.exports = app => {
     paranoid: true,
   });
 
-  return Vessel;
+  return Vehicle;
 };
