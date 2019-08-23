@@ -14,8 +14,8 @@ module.exports = app => {
     {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
       bill: { type: STRING(30), allowNull: false, comment: '提单号' },
-      vehicle: { type: STRING(50), allowNull: false, comment: '英文船名' },
-      vehicleCn: { type: STRING(50), comment: '中文船名' },
+      vessel: { type: STRING(50), allowNull: false, comment: '英文船名' },
+      vesselCn: { type: STRING(50), comment: '中文船名' },
       voyage: { type: STRING(10), allowNull: false, comment: '航次' },
       shippingSchedule: { type: DATEONLY, comment: '船期' },
       yard: { type: STRING(50), allowNull: false, comment: '场站' },

@@ -28,8 +28,8 @@ class BillController extends Controller {
     const ctx = this.ctx;
     const {
       bill,
-      vehicle,
-      vehicleCn,
+      vessel,
+      vesselCn,
       voyage,
       shippingSchedule,
       yard,
@@ -48,8 +48,8 @@ class BillController extends Controller {
     } = ctx.request.body;
     await ctx.model.Bill.create({
       bill: bill.toUpperCase(),
-      vehicle,
-      vehicleCn,
+      vessel,
+      vesselCn,
       voyage,
       shippingSchedule,
       yard,

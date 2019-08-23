@@ -21,10 +21,20 @@ class VehicleController extends Controller {
 
   async create() {
     const ctx = this.ctx;
-    const { name, role } = ctx.request.body;
-    const Vehicle = await ctx.model.Vehicle.create({ name, role });
+    const {
+      vehicleNumber,
+      driverName,
+      vehicleOwner,
+      driverMobile,
+    } = ctx.request.body;
+    await ctx.model.Vehicle.create({
+      vehicleNumber,
+      driverName,
+      vehicleOwner,
+      driverMobile,
+    });
     ctx.status = 201;
-    ctx.body = Vehicle;
+    ctx.body = await ctx.model.Vehicle.findAll();
   }
 
   async update() {
@@ -36,9 +46,19 @@ class VehicleController extends Controller {
       return;
     }
 
-    const { name, role } = ctx.request.body;
-    await Vehicle.update({ name, role });
-    ctx.body = Vehicle;
+    const {
+      vehicleNumber,
+      driverName,
+      vehicleOwner,
+      driverMobile,
+    } = ctx.request.body;
+    await Vehicle.update({
+      vehicleNumber,
+      driverName,
+      vehicleOwner,
+      driverMobile,
+    });
+    ctx.body = await ctx.model.Vehicle.findAll();
   }
 
   async destroy() {
@@ -51,6 +71,7 @@ class VehicleController extends Controller {
     }
 
     await Vehicle.destroy();
+    ctx.body = await ctx.model.Vehicle.findAll();
     ctx.status = 200;
   }
 }
