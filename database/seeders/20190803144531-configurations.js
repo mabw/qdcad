@@ -8,7 +8,7 @@ module.exports = {
         {
           type: 'yard',
           content:
-            '{"data":[{"name":"中创","identity":"zhongChuang",order:"4"},{"name":"捷丰","identity":"jieFeng",order:"3"},{"name":"港联欣","identity":"gangLianXin",order:"5"},{"name":"中外运","identity":"zhongWaiYun",order:"2"},{"name":"神州","identity":"shenZhou",order:"0"},{"name":"港联海","identity":"gangLianHai",order:"0"},{"name":"胜狮","identity":"shengShi",order:"0"},{"name":"港陆","identity":"gangLu",order:"0"},{"name":"长荣","identity":"changRong",order:"0"},{"name":"港联华","identity":"gangLianHua",order:"0"},{"name":"大亚","identity":"daYa",order:"1"}]}',
+            '{"data":[{"name":"中创","identity":"zhongChuang","order":"4"},{"name":"捷丰","identity":"jieFeng","order":"3"},{"name":"港联欣","identity":"gangLianXin","order":"5"},{"name":"中外运","identity":"zhongWaiYun","order":"2"},{"name":"神州","identity":"shenZhou","order":"0"},{"name":"港联海","identity":"gangLianHai","order":"0"},{"name":"胜狮","identity":"shengShi","order":"0"},{"name":"港陆","identity":"gangLu","order":"0"},{"name":"长荣","identity":"changRong","order":"0"},{"name":"港联华","identity":"gangLianHua","order":"0"},{"name":"大亚","identity":"daYa","order":"1"},{"name":"港联捷","identity":"gangLianJie","order":"0"},{"name":"世腾克运","identity":"shiTengKeYun","order":"0"}]}',
         },
         {
           type: 'container_spec',
