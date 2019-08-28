@@ -178,7 +178,7 @@ class RawBillInfoService extends Service {
     );
     const $ = cheerio.load(result.data);
 
-    return $('#wrap_bill').html();
+    return $('#Maincontent_divform').html();
   }
 
   async gangLianJie(bill) {
@@ -441,9 +441,194 @@ class RawBillInfoService extends Service {
     const dyMsg5 = dyMsg4
       .split('<?xml version="1.0" encoding="utf-8"?>')
       .join('');
-    const data = JSON.parse(dyMsg5);
+    const { RESULT } = JSON.parse(dyMsg5);
+    const vesselInfo = RESULT.DATA.VESCD[0];
+    const billInfo = RESULT.DATA.BILLINFO[0];
+    const hgfxInfo = RESULT.DATA.HGFXINFO[0];
+    const tdjhyxInfo = RESULT.DATA.TDJHYXINFO[0];
+    const yzxInfo = RESULT.DATA.YZXINFO[0];
+    const szxInfo = RESULT.DATA.SZXINFO[0];
+    const fxInfo = RESULT.DATA.FXHINFO[0];
 
-    return data;
+    // return RESULT;
+    return `
+    <div style="color: red">航名航次信息</div>
+    <table border="1" width="100%" cellspacing="0">
+      <tr style="background: grey">
+        <td>航次</td>
+        <td>中文船名</td>
+        <td>英文船名</td>
+        <td>装船码头</td>
+        <td>装船时间</td>
+        <td>计划集港开始</td>
+        <td>计划集港结束</td>
+      </tr>
+      <tr>
+        <td>${vesselInfo.VOYNO}</td>
+        <td>${vesselInfo.VESCD}</td>
+        <td>${vesselInfo.SPECEN}</td>
+        <td>${vesselInfo.DOCK}</td>
+        <td>${vesselInfo.LDDT}</td>
+        <td>${vesselInfo.JGSTDT}</td>
+        <td>${vesselInfo.INPODDT}</td>
+      </tr>
+    </table>
+    <div style="color: red">提单信息</div>
+    <table border="1" width="100%" cellspacing="0">
+      <tr style="background: grey">
+        <td>提单</td>
+        <td>主提单</td>
+        <td>中转港</td>
+        <td>目的港</td>
+        <td>操作员</td>
+        <td>电话</td>
+        <td>邮箱</td>
+      </tr>
+      <tr>
+        <td>${billInfo.BILLNO}</td>
+        <td>${billInfo.MBILLNO}</td>
+        <td>${billInfo.TRORTC}</td>
+        <td>${billInfo.LDPORT}</td>
+        <td>${billInfo.NAME}</td>
+        <td>${billInfo.TEL}</td>
+        <td>${billInfo.EMAIL}</td>
+      </tr>
+    </table>
+    <div style="color: red">海关放行信息</div>
+    <table border="1" width="100%" cellspacing="0">
+      <tr style="background: grey">
+        <td>提单</td>
+        <td>报关单号</td>
+        <td>场站确认</td>
+        <td>放行状态</td>
+        <td>件数</td>
+        <td>重量</td>
+        <td>海关通知查验</td>
+      </tr>
+      <tr>
+        <td>${hgfxInfo.BILLNO}</td>
+        <td>${hgfxInfo.ENTRYID}</td>
+        <td>${hgfxInfo.RDATE}</td>
+        <td>${hgfxInfo.CFDT}</td>
+        <td>${hgfxInfo.PKGS}</td>
+        <td>${hgfxInfo.GROSWT}</td>
+        <td>${hgfxInfo.TPORTC}</td>
+      </tr>
+    </table>
+    <div style="color: red">提单计划用箱：定箱号的提箱地点以定箱号中的信息为准</div>
+    <table border="1" width="100%" cellspacing="0">
+      <tr style="background: grey">
+        <td>箱经营人</td>
+        <td>尺寸箱型</td>
+        <td>箱分类</td>
+        <td>计划箱数</td>
+        <td>装箱性质</td>
+        <td>划拨状态</td>
+        <td>配载要求</td>
+        <td>提箱场站</td>
+        <td>温度</td>
+        <td>湿度</td>
+        <td>通风度</td>
+        <td>食品箱</td>
+        <td>法检箱</td>
+      </tr>
+      <tr>
+        <td>${tdjhyxInfo.CTNOPE}</td>
+        <td>${tdjhyxInfo.SZTP}</td>
+        <td>${tdjhyxInfo.CONTYPE}</td>
+        <td>${tdjhyxInfo.PLCTNS}</td>
+        <td>${tdjhyxInfo.DISCTNID}</td>
+        <td>${tdjhyxInfo.HUABO}</td>
+        <td>${tdjhyxInfo.LDREQ}</td>
+        <td>${tdjhyxInfo.TXYARD}</td>
+        <td>${tdjhyxInfo.TMPSET}</td>
+        <td>${tdjhyxInfo.WETSET}</td>
+        <td>${tdjhyxInfo.VENTDEGR}</td>
+        <td>${tdjhyxInfo.FDCTNCD}</td>
+        <td>${tdjhyxInfo.FJX}</td>
+      </tr>
+    </table>
+    <div style="color: red">
+      预装箱信息
+    </div>
+    <table border="1" width="100%" cellspacing="0">
+      <tr style="background: grey">
+        <td>箱号</td>
+        <td>箱经营人</td>
+        <td>返回地点</td>
+        <td>铅封号</td>
+        <td>用箱时间</td>
+        <td>返回时间</td>
+        <td>车号</td>
+        <td>箱皮重</td>
+        <td>尺寸箱型</td>
+      </tr>
+      <tr>
+        <td>${yzxInfo.CTNNO}</td>
+        <td>${yzxInfo.CTNOPE}</td>
+        <td>${yzxInfo.BKADRES}</td>
+        <td>${yzxInfo.SEALNO}</td>
+        <td>${yzxInfo.EMFUEDT}</td>
+        <td>${yzxInfo.LDBKDT}</td>
+        <td>${yzxInfo.TRKCD}</td>
+        <td>${yzxInfo.ECTNWT}</td>
+        <td>${yzxInfo.SZTP}</td>
+      </tr>
+    </table>
+    <div style="color: red">实装箱信息</div>
+    <table border="1" width="100%" cellspacing="0">
+      <tr style="background: grey">
+        <td>箱号</td>
+        <td>箱经营人</td>
+        <td>包装类型</td>
+        <td>提单件数</td>
+        <td>提单重量</td>
+        <td>铅封号</td>
+        <td>送港出场</td>
+        <td>查验/放行</td>
+        <td>箱总重</td>
+        <td>箱皮重</td>
+        <td>尺寸箱型</td>
+        <td>提单体积</td>
+        <td>放行状态</td>
+      </tr>
+      <tr>
+        <td>${szxInfo.CTNNO}</td>
+        <td>${szxInfo.CTNOPE}</td>
+        <td>${szxInfo.PLANBAY}</td>
+        <td>${szxInfo.EXPR1}</td>
+        <td>${szxInfo.ALK}</td>
+        <td>${szxInfo.SEALNO}</td>
+        <td>${szxInfo.GPOYDT}</td>
+        <td>${szxInfo.GATETIME}</td>
+        <td>${szxInfo.NOTIGWT}</td>
+        <td>${szxInfo.ECTNWT}</td>
+        <td>${szxInfo.SZTP}</td>
+        <td>${szxInfo.ALC}</td>
+        <td></td>
+      </tr>
+    </table>
+    <div style="color: red">放箱号</div>
+    <table border="1" width="100%" cellspacing="0">
+      <tr style="background: grey">
+        <td>订舱指令</td>
+        <td>箱经营人</td>
+        <td>尺寸箱型</td>
+        <td>主提单</td>
+        <td>放箱标志</td>
+        <td>放箱EIR号</td>
+      </tr>
+      <tr>
+        <td>${fxInfo.EIRFLAG}</td>
+        <td>${fxInfo.CTNOPE}</td>
+        <td>${fxInfo.SZTP}</td>
+        <td>${fxInfo.MBILLNO}</td>
+        <td>${fxInfo.FXBZ}</td>
+        <td>${fxInfo.EIRNO}</td>
+      </tr>
+    </table>
+    <H2>未处理一单多箱情况，提供给我相关提单号来添加</H2>
+    `;
   }
 
   async shiTengKeYun(bill) {

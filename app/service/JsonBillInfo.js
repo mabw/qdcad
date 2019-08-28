@@ -402,34 +402,30 @@ class JsonBillInfoService extends Service {
       measureDock: measureDock.trim(),
     };
   }
-
-  // JSAA107098  ganglianrong  790BK9023736 minjun code   FQGVLA900760 xin ba da  // 大亚
-  //   177XYGYGQ0101VRF
   async gangLu(bill) {
     const ctx = this.ctx;
-    const firstResult = await ctx.curl(
-      'http://www.medlog.com.cn/querydata/billquerysearch.aspx',
-      {
-        timeout: 20000,
-      }
-    );
-    const $r = cheerio.load(firstResult.data);
-    const viewState = $r('#__VIEWSTATE').val();
-    const result = await ctx.curl(
-      'http://www.medlog.com.cn/querydata/billquerysearch.aspx',
-      {
-        method: 'POST',
-        data: {
-          __VIEWSTATE: viewState,
-          ctl00$Maincontent$txtBillNo: bill,
-          ctl00$Maincontent$btnSearch: '%E6%9F%A5%E8%AF%A2',
-        },
-        timeout: 20000,
-      }
-    );
-    const $ = cheerio.load(result.data);
+    const rawData = await ctx.service.rawBillInfo.gangLu(bill);
+    const $ = cheerio.load(rawData);
+    const contentTable = $('#tbMainData > tbody > tr')
+      .eq(1)
+      .find('td');
+    const vessel = contentTable.eq(0).text();
+    const vesselCn = contentTable.eq(1).text();
+    const voyage = contentTable.eq(2).text();
+    const containerSpec = contentTable
+      .eq(4)
+      .text()
+      .trim()
+      .split('*')[0];
+    const measureDock = contentTable.eq(10).text();
 
-    return $('#wrap_bill').html();
+    return {
+      vessel: vessel.trim(),
+      vesselCn: vesselCn.trim(),
+      voyage: voyage.trim(),
+      containerSpec,
+      measureDock: measureDock.trim(),
+    };
   }
 
   async daYa(bill) {
@@ -458,10 +454,20 @@ class JsonBillInfoService extends Service {
     const dyMsg5 = dyMsg4
       .split('<?xml version="1.0" encoding="utf-8"?>')
       .join('');
-    const data = JSON.parse(dyMsg5);
+    const { RESULT } = JSON.parse(dyMsg5);
+    const { VESCD, VOYNO, SPECEN } = RESULT.DATA.VESCD[0];
+    const { SZTP } = RESULT.DATA.TDJHYXINFO[0];
 
-    return data;
+    return {
+      vessel: SPECEN.trim(),
+      vesselCn: VESCD.trim(),
+      voyage: VOYNO.trim(),
+      containerSpec: SZTP.trim(),
+      measureDock: '',
+    };
   }
+
+  // JSAA107098  ganglianrong  790BK9023736 minjun code   FQGVLA900760 xin ba da  // 大亚
 }
 
 module.exports = JsonBillInfoService;
